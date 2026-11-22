@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { GraduationCap, MapPin, Target, Code, Cpu, Zap, Bot, Sparkles, Heart, Star, Award, BookOpen, Globe, Layers, MousePointer, Brain, Zap as ZapIcon } from "lucide-react";
+import { useEffect, useRef, useState, type CSSProperties, useCallback } from "react";
+import { GraduationCap, MapPin, Target, Code, Cpu, Zap, Bot, Sparkles, Heart, Star, ArrowRight, Award, BookOpen, Globe, Layers, MousePointer, Brain, Zap as ZapIcon } from "lucide-react";
 import photo from "../assets/bhavin-photo.webp";
-import { quickFacts } from "../data";
+import { quickFacts, highlights } from "../data";
 import { cn } from "../utils/cn";
 import { Reveal } from "./Reveal";
 import SectionHeading from "./SectionHeading";
@@ -317,17 +317,20 @@ export default function About() {
               <div className="mt-10 grid gap-px overflow-hidden border border-white/10 bg-white/10 xl:grid-cols-[1.15fr_1fr]">
                 {/* highlights */}
                 <ul className="bg-ink">
-                  {highlights.map(({ icon: Icon, title, text }, i) => (
-                    <Reveal as="li" key={title} delay={i * 90} className="group flex items-start gap-4 border-b border-white/10 p-5 transition-colors duration-300 last:border-b-0 hover:bg-white/[0.03]">
-                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/20 text-white transition-all duration-300 group-hover:border-crimson-bright group-hover:bg-crimson group-hover:text-white">
-                        <Icon className="h-[1.1rem] w-[1.1rem]" />
-                      </span>
-                      <span>
-                        <span className="micro block text-crimson-bright">{title}</span>
-                        <span className="mt-1.5 block text-sm leading-6 text-white/75">{text}</span>
-                      </span>
-                    </Reveal>
-                  ))}
+                  {highlights.map(({ icon, title, text }, i) => {
+                    const Icon = icon === "GraduationCap" ? GraduationCap : icon === "MapPin" ? MapPin : Target;
+                    return (
+                      <Reveal as="li" key={title} delay={i * 90} className="group flex items-start gap-4 border-b border-white/10 p-5 transition-colors duration-300 last:border-b-0 hover:bg-white/[0.03]">
+                        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/20 text-white transition-all duration-300 group-hover:border-crimson-bright group-hover:bg-crimson group-hover:text-white">
+                          <Icon className="h-[1.1rem] w-[1.1rem]" />
+                        </span>
+                        <span>
+                          <span className="micro block text-crimson-bright">{title}</span>
+                          <span className="mt-1.5 block text-sm leading-6 text-white/75">{text}</span>
+                        </span>
+                      </Reveal>
+                    );
+                  })}
                 </ul>
 
                 {/* quick facts + stats */}

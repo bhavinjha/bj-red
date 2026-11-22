@@ -47,6 +47,24 @@ export const quickFacts = [
   { label: "Projects built", value: "4+ Robots & Websites", highlight: true },
 ];
 
+export const highlights = [
+  {
+    icon: "GraduationCap",
+    title: "Education",
+    text: "Class 8th Student at Scottish Public School",
+  },
+  {
+    icon: "MapPin",
+    title: "Location",
+    text: "Binodpur, Katihar, Bihar, India",
+  },
+  {
+    icon: "Target",
+    title: "Future goals",
+    text: "Mastering AI automation, advanced robotics and production-ready websites",
+  },
+] as const;
+
 export const projects = [
   {
     no: "01",
