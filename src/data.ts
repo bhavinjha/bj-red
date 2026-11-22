@@ -16,6 +16,7 @@ export const profile = {
 export const navLinks = [
   { label: "Home", id: "home" },
   { label: "About", id: "about" },
+  { label: "Kilkila Gulab Jamun", id: "kilkila" },
   { label: "Projects", id: "projects" },
   { label: "Skills", id: "skills" },
   { label: "Process", id: "process" },

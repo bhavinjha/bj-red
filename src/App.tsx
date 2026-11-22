@@ -4,6 +4,7 @@ import Details from "./components/Details";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import KilkilaGulabJamun from "./components/KilkilaGulabJamun";
 import Marquee from "./components/Marquee";
 import Projects from "./components/Projects";
 
@@ -21,6 +22,7 @@ export default function App() {
         <Hero />
         <Marquee />
         <About />
+        <KilkilaGulabJamun />
         <Projects />
         <Details />
         <Contact />
