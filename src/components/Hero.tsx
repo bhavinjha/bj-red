@@ -7,15 +7,16 @@ import { InfiniteIconCSS } from "./InfiniteIcon";
 
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
-// Floating ambient particles
+// Enhanced floating ambient particles with glow
 function FloatingParticles() {
-  const particles = Array.from({ length: 12 }, (_, i) => ({
+  const particles = Array.from({ length: 20 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,
-    size: Math.random() * 4 + 1,
-    delay: Math.random() * 8,
-    duration: 6 + Math.random() * 4,
+    size: Math.random() * 3 + 1,
+    delay: Math.random() * 12,
+    duration: 8 + Math.random() * 8,
+    color: Math.random() > 0.5 ? "#ff2a34" : "#2ad9ff",
   }));
 
   return (
@@ -23,12 +24,15 @@ function FloatingParticles() {
       {particles.map((p) => (
         <div
           key={p.id}
-          className="absolute rounded-full bg-crimson-bright/20"
+          className="absolute rounded-full"
           style={{
             left: `${p.x}%`,
             top: `${p.y}%`,
             width: `${p.size}px`,
             height: `${p.size}px`,
+            background: p.color,
+            opacity: 0.4,
+            filter: `blur(${p.size * 0.5}px)`,
             animation: `float-particle ${p.duration}s ease-in-out infinite`,
             animationDelay: `${p.delay}s`,
           } as CSSProperties}
@@ -36,67 +40,86 @@ function FloatingParticles() {
       ))}
       <style jsx>{`
         @keyframes float-particle {
-          0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.15; }
-          25% { transform: translate3d(20px, -30px, 0) scale(1.2); opacity: 0.3; }
-          50% { transform: translate3d(-15px, -50px, 0) scale(0.8); opacity: 0.2; }
-          75% { transform: translate3d(25px, -20px, 0) scale(1.1); opacity: 0.25; }
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.2; }
+          25% { transform: translate3d(30px, -40px, 0) scale(1.3); opacity: 0.5; }
+          50% { transform: translate3d(-20px, -60px, 0) scale(0.7); opacity: 0.3; }
+          75% { transform: translate3d(35px, -25px, 0) scale(1.2); opacity: 0.4; }
         }
       `}</style>
     </div>
   );
 }
 
-// Interactive tech icons that float around the portrait
+// Enhanced tech orbit with better visuals
 function TechOrbit() {
   const techIcons = [
-    { icon: Cpu, color: "#ff2a34", label: "C++" },
-    { icon: Bot, color: "#2ad9ff", label: "Robotics" },
-    { icon: Zap, color: "#ffd72a", label: "Arduino" },
-    { icon: Sparkles, color: "#2aff5e", label: "AI" },
+    { icon: Cpu, color: "#ff2a34", label: "C++", gradient: "linear-gradient(135deg, #ff2a34, #ff6b2a)" },
+    { icon: Bot, color: "#2ad9ff", label: "Robotics", gradient: "linear-gradient(135deg, #2ad9ff, #2a6bff)" },
+    { icon: Zap, color: "#ffd72a", label: "Arduino", gradient: "linear-gradient(135deg, #ffd72a, #b8ff2a)" },
+    { icon: Sparkles, color: "#2aff5e", label: "AI", gradient: "linear-gradient(135deg, #2aff5e, #2ad9ff)" },
   ];
 
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-5">
-      {techIcons.map(({ icon: Icon, color, label }, i) => (
+      {techIcons.map(({ icon: Icon, color, label, gradient }, i) => (
         <div
           key={label}
           className="absolute tech-orbit-item"
           style={{
-            animation: `orbit ${12 + i * 2}s linear infinite`,
-            animationDelay: `${i * 3}s`,
+            animation: `orbit ${14 + i * 2}s linear infinite`,
+            animationDelay: `${i * 3.5}s`,
           } as CSSProperties}
         >
           <div
             className="tech-badge group"
             style={{
-              background: `radial-gradient(circle at 30% 30%, ${color}40, ${color}10)`,
+              background: `rgba(6, 6, 6, 0.7)`,
               borderColor: `${color}60`,
             } as CSSProperties}
           >
-            <Icon className="h-4 w-4" style={{ color }} />
+            <div
+              className="icon-wrapper"
+              style={{ background: gradient, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}
+            >
+              <Icon className="h-4 w-4" />
+            </div>
             <span className="tech-label">{label}</span>
           </div>
+          <div
+            className="orbit-trail"
+            style={{
+              borderColor: `${color}30`,
+            } as CSSProperties}
+          />
           <style jsx>{`
             @keyframes orbit {
-              0% { transform: rotate(0deg) translateX(180px) rotate(0deg); }
-              100% { transform: rotate(360deg) translateX(180px) rotate(-360deg); }
+              0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+              100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
             }
             .tech-badge {
               display: flex;
               align-items: center;
-              gap: 6px;
-              padding: 6px 10px;
+              gap: 8px;
+              padding: 8px 14px;
               border-radius: 999px;
               border: 1px solid;
-              backdrop-filter: blur(8px);
-              background: rgba(6, 6, 6, 0.6);
-              box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+              backdrop-filter: blur(12px);
+              background: rgba(6, 6, 6, 0.7);
+              box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
               transform: rotate(calc(var(--rotation, 0deg) * -1));
-              transition: transform 0.3s ease, box-shadow 0.3s ease;
+              transition: all 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
             }
             .tech-badge:hover {
-              transform: scale(1.15) rotate(calc(var(--rotation, 0deg) * -1));
-              box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 24px currentColor;
+              transform: scale(1.12) rotate(calc(var(--rotation, 0deg) * -1));
+              box-shadow:
+                0 16px 48px rgba(0, 0, 0, 0.6),
+                0 0 32px currentColor,
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            }
+            .icon-wrapper {
+              font-weight: 700;
             }
             .tech-label {
               font-size: 0.55rem;
@@ -106,15 +129,22 @@ function TechOrbit() {
               white-space: nowrap;
               opacity: 0;
               transform: translateX(-100%);
-              transition: opacity 0.2s ease, transform 0.2s ease;
-            }
-            .tech-badge:hover .tech-label {
-              opacity: 1;
-              transform: translateX(0);
+              transition: all 0.3s ease;
             }
             .group:hover .tech-label {
               opacity: 1;
               transform: translateX(0);
+            }
+            .orbit-trail {
+              position: absolute;
+              inset: -4px;
+              border: 1px dashed;
+              border-radius: 999px;
+              opacity: 0;
+              transition: opacity 0.3s ease.
+            }
+            .group:hover .orbit-trail {
+              opacity: 1;
             }
           `}</style>
         </div>
@@ -123,7 +153,7 @@ function TechOrbit() {
   );
 }
 
-// Mouse-following glow effect on portrait
+// Enhanced mouse-following glow with multiple layers
 function PortraitGlow() {
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
   const ref = useRef<HTMLDivElement>(null);
@@ -154,8 +184,12 @@ function PortraitGlow() {
       ref={ref}
       className="absolute inset-0 pointer-events-none"
       style={{
-        background: `radial-gradient(ellipse 60% 50% at ${mousePos.x}% ${mousePos.y}%, rgba(255, 42, 52, 0.15) 0%, transparent 60%)`,
-        transition: "background 0.3s ease-out",
+        background: `
+          radial-gradient(ellipse 70% 60% at ${mousePos.x}% ${mousePos.y}%, rgba(255, 42, 52, 0.18) 0%, transparent 50%),
+          radial-gradient(ellipse 50% 40% at ${mousePos.x}% ${mousePos.y}%, rgba(42, 217, 255, 0.12) 0%, transparent 60%),
+          radial-gradient(ellipse 100% 80% at 50% 50%, rgba(255, 42, 52, 0.05) 0%, transparent 70%)
+        `,
+        transition: "background 0.4s ease-out",
       } as CSSProperties}
     />
   );
@@ -379,10 +413,7 @@ export default function Hero() {
             >
               <span className="block font-display text-[2.4rem] leading-none text-crimson-bright lg:min-w-[4.5rem] lg:text-[3.1rem]">
                 {s.to === null ? (
-                  <>
-                    <InfiniteIconCSS size="2.4rem" />
-                    <span className="ml-1">∞</span>
-                  </>
+                  <InfiniteIconCSS size="2.4rem" />
                 ) : (
                   <CountUp to={s.to} suffix={s.suffix} />
                 )}

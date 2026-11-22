@@ -142,19 +142,33 @@ export function InfiniteIconCSS({
         {`
           .infinite-css {
             display: inline-block;
-            background: linear-gradient(90deg, #ff2a34, #ff6b2a, #ffd72a, #2aff5e, #2ad9ff, #2a6bff, #a82aff, #ff2a34);
+            background: linear-gradient(90deg,
+              #ff2a34 0%,
+              #ff5c2a 12.5%,
+              #ff9e2a 25%,
+              #ffd72a 37.5%,
+              #b8ff2a 50%,
+              #2aff5e 62.5%,
+              #2ad9ff 75%,
+              #2a6bff 87.5%,
+              #a82aff 100%
+            );
             background-size: 400% 100%;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             animation: infinite-rainbow-flow 4s linear infinite, infinite-scale 3s ease-in-out infinite;
+            text-shadow:
+              0 0 30px rgba(255, 42, 52, 0.5),
+              0 0 60px rgba(42, 217, 255, 0.3),
+              0 0 90px rgba(168, 42, 255, 0.2);
           }
           .infinite-symbol {
             display: inline-block;
             font-family: 'Anton', 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
             font-weight: 700;
-            filter: drop-shadow(0 0 12px rgba(255, 42, 52, 0.6)) drop-shadow(0 0 24px rgba(42, 217, 255, 0.4));
-            animation: infinite-glow-pulse 2.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 42, 52, 0.8)) drop-shadow(0 0 40px rgba(42, 217, 255, 0.5));
+            animation: infinite-glow-pulse 2.5s ease-in-out infinite, infinite-rotate 8s ease-in-out infinite;
           }
           @keyframes infinite-rainbow-flow {
             0% { background-position: 0% 50%; }
@@ -162,11 +176,21 @@ export function InfiniteIconCSS({
           }
           @keyframes infinite-scale {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+            50% { transform: scale(1.1); }
           }
           @keyframes infinite-glow-pulse {
-            0%, 100% { filter: drop-shadow(0 0 12px rgba(255, 42, 52, 0.6)) drop-shadow(0 0 24px rgba(42, 217, 255, 0.4)); }
-            50% { filter: drop-shadow(0 0 20px rgba(255, 42, 52, 0.9)) drop-shadow(0 0 40px rgba(42, 217, 255, 0.7)); }
+            0%, 100% {
+              filter: drop-shadow(0 0 20px rgba(255, 42, 52, 0.8)) drop-shadow(0 0 40px rgba(42, 217, 255, 0.5));
+            }
+            50% {
+              filter: drop-shadow(0 0 35px rgba(255, 42, 52, 1)) drop-shadow(0 0 70px rgba(42, 217, 255, 0.8)) drop-shadow(0 0 100px rgba(168, 42, 255, 0.6));
+            }
+          }
+          @keyframes infinite-rotate {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(3deg) scale(1.05); }
+            50% { transform: rotate(0deg) scale(1); }
+            75% { transform: rotate(-3deg) scale(1.05); }
           }
         `}
       </style>

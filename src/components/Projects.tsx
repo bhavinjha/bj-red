@@ -118,7 +118,6 @@ export default function Projects() {
               <span className="hidden text-white/40 sm:inline">|</span>
               <span className="flex items-center gap-2">
                 <InfiniteIconCSS size="2rem" className="mr-1" />
-                <span className="font-display text-3xl leading-none tracking-normal">∞</span>
                 ideas in progress
               </span>
             </p>
